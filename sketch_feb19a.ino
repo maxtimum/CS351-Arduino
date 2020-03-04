@@ -18,14 +18,18 @@ int swapCounter = 0;
 int ServeSwap = 0;
 int P1ServeCounter = 0;
 int P2ServeCounter = 2;
+
+int P1Set = 0;
+int P2Set = 0;
+
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 void setup() {
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
   // Print a message to the LCD.
-  lcd.print("P1     ||     P2");
-lcd.setCursor(0,1);
+  lcd.print("P1  S:0||0:S  P2");
+  lcd.setCursor(0,1);
   lcd.print("0      ||     0");
   pinMode(incP1,INPUT);
   pinMode(incP2,INPUT);
@@ -45,21 +49,21 @@ void loop() {
   if(P1ServeCounter == 0 && P1ServeCounter < 2 && ServeSwap == 0){
     P1ServeCounter++;
     delay(200);
-    lcd.setCursor(0,3);
+    lcd.setCursor(3,0);
     lcd.print("*");
   }
   
-  if(P2ServeCounter == 0 P2ServeCounter < 2 && ServeSwap == 1){
+  if(P2ServeCounter == 0 && P2ServeCounter < 2 && ServeSwap == 1){
     P2ServeCounter++;
     delay(200);
-    lcd.setCursor(0,14);
+    lcd.setCursor(4,0);
     lcd.print("*");
   }
   
   if(button1 == HIGH){
     P1Score++;
     delay(200);
-    lcd.setCursor(1,1);
+    lcd.setCursor(0,1);
     lcd.print(P1Score);
   }
 
@@ -75,7 +79,7 @@ void loop() {
         P1Score--;
       }
     delay(200);
-    lcd.setCursor(1,1);
+    lcd.setCursor(0,1);
     lcd.print(P1Score);
   }
 
@@ -93,6 +97,14 @@ void loop() {
         totalScore = P1Score + P2Score;
 
     if(P1Score >= 11 && (P1Score - P2Score) >= 2){
+      P1Set++;
+      P1Score = 0;
+      P2Score = 0;
+      lcd.setCursor(6,0);
+      lcd.print(P1Set);
+      lcd.setCursor(0,1);
+      lcd.print("0      ||     0 ");
+      /*
       lcd.clear();
       lcd.setCursor(0,0);
       lcd.print("PLAYER 1 WINS");
@@ -100,8 +112,37 @@ void loop() {
       digitalWrite(ledP1,HIGH);
       delay(500);
       digitalWrite(ledP1,LOW);
+      */
   } else if(P2Score >=11 && (P2Score - P1Score) >= 2){
+    P2Set++;
+    P1Score = 0;
+    P2Score = 0;
+    lcd.setCursor(9,0);
+    lcd.print(P2Set);
+    lcd.setCursor(0,1);
+    lcd.print("0      ||     0 ");
+    
+    /*
             lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print("PLAYER 2 WINS");
+      delay(500);
+      digitalWrite(ledP2,HIGH);
+      delay(500);
+      digitalWrite(ledP2,LOW);
+      */
+  }
+
+  if(P1Set == 3){
+       lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print("PLAYER 1 WINS");
+      delay(500);
+      digitalWrite(ledP1,HIGH);
+      delay(500);
+      digitalWrite(ledP1,LOW);
+  }else if (P2Set == 3){
+                lcd.clear();
       lcd.setCursor(0,0);
       lcd.print("PLAYER 2 WINS");
       delay(500);
@@ -143,5 +184,3 @@ void loop() {
   }
   */
 }
-
-
