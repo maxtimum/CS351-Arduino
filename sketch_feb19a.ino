@@ -218,13 +218,13 @@ void loop() {
       lcd.clear();
       lcd.setCursor(0,0);
       lcd.print("PLAYER 1 WINS!!!");
-      if(SideSwap == false){
+      if(SideSwap == true){
         digitalWrite(ledP2,LOW); 
         delay(500);
         digitalWrite(ledP1,HIGH);
         delay(500);
         digitalWrite(ledP1,LOW);
-      } else if (SideSwap == true){
+      } else if (SideSwap == false){
         digitalWrite(ledP1, LOW);
         delay(500);
         digitalWrite(ledP2,HIGH);
@@ -236,13 +236,13 @@ void loop() {
       lcd.clear();
       lcd.setCursor(0,0);
       lcd.print("PLAYER 2 WINS!!!");
-      if(SideSwap == false){
+      if(SideSwap == true){
         digitalWrite(ledP1, LOW);
         delay(500);
         digitalWrite(ledP2,HIGH);
         delay(500);
         digitalWrite(ledP2,LOW);
-      } else if (SideSwap == true){
+      } else if (SideSwap == false){
         digitalWrite(ledP2,LOW); 
         delay(500);
         digitalWrite(ledP1,HIGH);
