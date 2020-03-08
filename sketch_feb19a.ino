@@ -1,37 +1,48 @@
 #include <LiquidCrystal.h>
+//pin setup
 int incP1 = 10;
 int incP2 = 8;
 int decP1 = 6;
 int decP2 = 9;
 int ledP1 = 1;
 int ledP2 = 13;
+
+//button setup
 int button1 = 0;
 int button2 = 0;
 int button3 = 0;
 int button4 = 0;
-//pin 6 & 7
 
+//variable setup
+//player score
 int P1Score = 0;
 int P2Score = 0;
+//total score counter
 int totalScore = 0;
-int swapCounter = 0;
+//ServeSwap Booloean
 boolean ServeSwap = false;
+//ServeCounter
 int ServeCounter = 1;
 boolean SideSwap = false;
 //has someone won the game yet
 boolean win = false;
+//player set counters
 int P1Set = 0;
 int P2Set = 0;
 
+//creating lcd object
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 void setup() {
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
+  
   // Print a message to the LCD.
   lcd.print("P1  S:0||0:S  P2");
   lcd.setCursor(0,1);
   lcd.print("0      ||     0");
+  
+  //setup each pin to take input and LEDs to output
   pinMode(incP1,INPUT);
   pinMode(incP2,INPUT);
   pinMode(decP1,INPUT);
@@ -62,8 +73,8 @@ void loop() {
   if(totalScore == 20 || totalScore == 0){
     ServeCounter = 1;
   }
-
   
+  //set a win boolean to let the rest of the program know when someone has won the game (winner of 3 sets)
   if(win == false){
     if(ServeSwap == false){
       delay(200);
@@ -76,10 +87,14 @@ void loop() {
     }
   }
   
+  //when button 1 is pressed
   if(button1 == HIGH){
+    //increment player score
     P1Score++;
+    //increment serve counter
     ServeCounter++;
     delay(200);
+    //if players are swapped display scores flipped
     if (SideSwap == false){
     lcd.setCursor(0,1);
     lcd.print(P1Score);
@@ -88,7 +103,7 @@ void loop() {
       lcd.print(P1Score);
     }
   }
-
+    
     if(button3 == HIGH){
     P2Score++;
     ServeCounter++;
@@ -131,14 +146,19 @@ void loop() {
         lcd.print(P2Score);
       }
     }
-
+  
+  //track total score
   totalScore = P1Score + P2Score;
 
+  //on set win
     if(P1Score >= 11 && (P1Score - P2Score) >= 2){
+      //increment player set counter
       P1Set++;
+      //set player score and total score back to 0
       P1Score = 0;
       P2Score = 0;
       totalScore = 0;
+      //swap sides if not already and 
       if(SideSwap == false){
         SideSwap = true; 
         lcd.setCursor(0,0);
@@ -149,6 +169,7 @@ void loop() {
         lcd.print(P2Set);
         lcd.setCursor(9,0);
         lcd.print(P1Set);
+        //swap sides back to original positions if not already swapped
       } else if (SideSwap == true){
         SideSwap = false;
          lcd.setCursor(0,0);
