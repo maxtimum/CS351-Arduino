@@ -14,11 +14,3 @@
 *The player who first score 11 points is the winner, however a game must be won by at least a two-point margin.
 
 *A match/game is played as 5 sets
-
-# Helpful Link:
-https://learn.sparkfun.com/tutorials/sik-experiment-guide-for-the-arduino-101genuino-101-board/introduction-arduinogenuino-sparkfun-inventors-kit
-# Submission:
-
-*Each team needs to deliver the accessory, perform a presentation and demo. 
-
-*After the presentation, each team member will be interviewed individually.
